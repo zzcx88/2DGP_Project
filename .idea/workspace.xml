@@ -2,27 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8803d431-d33c-489a-bf14-641e9928994d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/LEEJAEWON.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resorce/LeeJY.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resorce/kpu_credit.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Resorce/title_bg.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/town_state.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CampusMap.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/CampusMap.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EDN_BG.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/EDN_BG.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EnemysBullet.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/EnemysBullet.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameOver_bg.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/GameOver_bg.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LectureRoom.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/LectureRoom.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/LeeJY.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MAP08.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/MAP08.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlayerCharacter.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/PlayerCharacter.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TownBuildingSet_1.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/TownBuildingSet_1.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kpu_credit.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mygame.py" beforeDir="false" afterPath="$PROJECT_DIR$/mygame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_18894.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/python_18894.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/start_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/start_state.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/title_bg.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tmp_enemy.png" beforeDir="false" afterPath="$PROJECT_DIR$/Resorce/tmp_enemy.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PlayerClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/PlayerClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/town_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/town_state.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,34 +35,35 @@
     <session id="-1328721651">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="6" />
-          <entry key="project.open.time.0" value="3" />
+          <entry key="project.closed" value="9" />
+          <entry key="project.open.time.0" value="5" />
           <entry key="project.open.time.10" value="1" />
-          <entry key="project.open.time.4" value="1" />
+          <entry key="project.open.time.4" value="2" />
           <entry key="project.open.time.5" value="2" />
-          <entry key="project.opened" value="7" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="11" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="png" value="13" />
-          <entry key="py" value="17" />
+          <entry key="py" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Image" value="13" />
-          <entry key="Python" value="17" />
+          <entry key="Python" value="19" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="1541" />
+          <entry key="py" value="2414" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="1541" />
+          <entry key="Python" value="2414" />
         </counts>
       </usages-collector>
     </session>
@@ -102,15 +85,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/town_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="798">
-              <caret line="54" column="17" lean-forward="true" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
+            <state relative-caret-position="266">
+              <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="33" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1540399658499" expanded="true" signature="138:141" ph="..." />
-                <marker date="1540399658499" expanded="true" signature="205:315" ph="..." />
-                <marker date="1540399658499" expanded="true" signature="326:364" ph="..." />
-                <marker date="1540399658499" expanded="true" signature="376:387" ph="..." />
-                <marker date="1540399658499" expanded="true" signature="995:1129" ph="..." />
+                <marker date="1540738210343" expanded="true" signature="119:122" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/TownClass.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="57">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+              <folding>
+                <element signature="e#0#20#0" expanded="true" />
+                <marker date="1540753744663" expanded="true" signature="73:78" ph="..." />
               </folding>
             </state>
           </provider>
@@ -119,13 +111,25 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PlayerClass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+            <state relative-caret-position="275">
+              <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
               <folding>
-                <marker date="1540399770739" expanded="true" signature="35:40" ph="..." />
-                <marker date="1540399770739" expanded="true" signature="59:329" ph="..." />
-                <marker date="1540399770739" expanded="true" signature="346:366" ph="..." />
+                <element signature="e#0#20#0" expanded="true" />
+                <marker date="1540754649999" expanded="true" signature="1127:1138" ph="..." />
+                <marker date="1540754649999" expanded="true" signature="1156:1167" ph="..." />
+                <marker date="1540754649999" expanded="true" signature="1180:1185" ph="..." />
+                <marker date="1540754649999" expanded="true" signature="1204:1479" ph="..." />
+                <marker date="1540754649999" expanded="true" signature="1496:1516" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Object_mgr.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
             </state>
           </provider>
         </entry>
@@ -142,7 +146,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/title_state.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
+            <state relative-caret-position="532">
               <caret line="28" selection-start-line="28" selection-end-line="28" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
@@ -154,7 +158,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game_framework.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
+            <state relative-caret-position="1748">
               <caret line="92" selection-start-line="92" selection-end-line="92" />
             </state>
           </provider>
@@ -184,14 +188,16 @@
         <option value="$PROJECT_DIR$/start_state.py" />
         <option value="$PROJECT_DIR$/title_state.py" />
         <option value="$PROJECT_DIR$/Resorce/PlayerClass.py" />
+        <option value="$PROJECT_DIR$/Object_mgr.py" />
         <option value="$PROJECT_DIR$/town_state.py" />
+        <option value="$PROJECT_DIR$/TownClass.py" />
         <option value="$PROJECT_DIR$/PlayerClass.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="103" />
-    <option name="y" value="28" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="656" />
+    <option name="y" value="18" />
     <option name="width" value="1145" />
     <option name="height" value="1025" />
   </component>
@@ -206,11 +212,6 @@
             <path>
               <item name="2DGP_Project" type="b2602c69:ProjectViewProjectNode" />
               <item name="2DGP_Project" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="2DGP_Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="2DGP_Project" type="462c0819:PsiDirectoryNode" />
-              <item name="Resorce" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -285,15 +286,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
+    <frame x="824" y="23" width="916" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14672835" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.14448236" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.36647728" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36647728" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -306,6 +307,25 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14448236" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.36647728" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -358,23 +378,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/title_state.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/game_framework.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mygame.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="114">
@@ -385,6 +388,35 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/town_state.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+            <marker date="1540738210343" expanded="true" signature="119:122" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TownClass.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+            <marker date="1540753744663" expanded="true" signature="73:78" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Object_mgr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/start_state.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -392,29 +424,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/town_state.py">
+    <entry file="file://$PROJECT_DIR$/title_state.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="798">
-          <caret line="54" column="17" lean-forward="true" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
+        <state relative-caret-position="532">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
           <folding>
-            <element signature="e#0#13#0" expanded="true" />
-            <marker date="1540399658499" expanded="true" signature="138:141" ph="..." />
-            <marker date="1540399658499" expanded="true" signature="205:315" ph="..." />
-            <marker date="1540399658499" expanded="true" signature="326:364" ph="..." />
-            <marker date="1540399658499" expanded="true" signature="376:387" ph="..." />
-            <marker date="1540399658499" expanded="true" signature="995:1129" ph="..." />
+            <element signature="e#0#21#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game_framework.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1748">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/PlayerClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+        <state relative-caret-position="275">
+          <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
           <folding>
-            <marker date="1540399770739" expanded="true" signature="35:40" ph="..." />
-            <marker date="1540399770739" expanded="true" signature="59:329" ph="..." />
-            <marker date="1540399770739" expanded="true" signature="346:366" ph="..." />
+            <element signature="e#0#20#0" expanded="true" />
+            <marker date="1540754649999" expanded="true" signature="1127:1138" ph="..." />
+            <marker date="1540754649999" expanded="true" signature="1156:1167" ph="..." />
+            <marker date="1540754649999" expanded="true" signature="1180:1185" ph="..." />
+            <marker date="1540754649999" expanded="true" signature="1204:1479" ph="..." />
+            <marker date="1540754649999" expanded="true" signature="1496:1516" ph="..." />
           </folding>
         </state>
       </provider>
