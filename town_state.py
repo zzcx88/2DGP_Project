@@ -4,25 +4,27 @@ import os
 
 from pico2d import *
 import game_framework
-import PlayerClass
-
-
+import Object_mgr
+from PlayerClass import Player
+from TownClass import Townmap
 name = "TownState"
 
+player = None
+TownMap = None
 
 def enter():
-    global player
-    player = PlayerClass.Player()
-    global TownBg
-    TownBg = load_image('Resorce\Town_map.png')
-    global x, y
-    x = 1920
-    y = 512
+    global player, TownMap
+    player = Player()
+    TownMap = Townmap()
+    Object_mgr.add_object(TownMap, 0)
+    Object_mgr.add_object(player, 1)
 
 
 def exit():
-    global TownBg
-    del (TownBg)
+    global player, TownMap
+    Object_mgr.clear()
+    del player
+    del TownMap
 
 
 def pause():
@@ -33,39 +35,33 @@ def resume():
 
 
 def handle_events():
-    global player
     events = get_events()
     for event in events:
-        if event.type == SDL_KEYDOWN:
-            if event.key == SDLK_RIGHT:
-                player.dir += 1
-            elif event.key == SDLK_LEFT:
-                player.dir -= 1
-            elif event.key == SDLK_ESCAPE:
-                player.running = False
-        elif event.type == SDL_KEYUP:
-            if event.key == SDLK_RIGHT:
-                player.dir -= 1
-            elif event.key == SDLK_LEFT:
-                player.dir += 1
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+            game_framework.quit()
+        else:
+            player.handle_event(event)
 
 def update():
-    global x
-    global player
-    if player.x > 1300 // 2:
-        player.x -= 10
-        x -= 10
-    elif player.x < 600:
-        player.x += 10
-        x += 10
+    # global x
+    # global player
+    # if player.x > 1300 // 2:
+    #     player.x -= 10
+    #     x -= 10
+    # elif player.x < 600:
+    #     player.x += 10
+    #     x += 10
+    for game_object in Object_mgr.all_objects():
+        game_object.update()
 
 def draw():
-    global player
     clear_canvas()
-    TownBg.draw(x, y)
-    player.update()
-    player.draw()
+    for game_object in Object_mgr.all_objects():
+        game_object.draw()
     update_canvas()
+    delay(0.02)
 
 
 
