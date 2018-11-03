@@ -41,18 +41,12 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+            pass
         else:
             player.handle_event(event)
 
 def update():
-    # global x
-    # global player
-    # if player.x > 1300 // 2:
-    #     player.x -= 10
-    #     x -= 10
-    # elif player.x < 600:
-    #     player.x += 10
-    #     x += 10
     for game_object in Object_mgr.all_objects():
         game_object.update()
 

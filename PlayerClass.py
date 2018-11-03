@@ -77,7 +77,7 @@ class RunState:
     def do(player):
         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
         player.x += player.velocity * game_framework.frame_time
-        #player.x = clamp(25, player.x, 1600 - 25)
+        #player.x = clamp(25, player.x, 1920 - 25)
     @staticmethod
     def draw(player):
         if player.dir == 1:
@@ -101,7 +101,7 @@ class AttackState:
 class Player:
     def __init__(self):
         self.image = load_image('Resorce\PlayerCharacter.png')
-        self.x, self.y = 600, 0
+        self.x, self.y = 640, 0
         self.velocity = 0
         self.dir = 1
         self.frame = 0
@@ -119,7 +119,7 @@ class Player:
             self.cur_state.exit(self, event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self, event)
-
+            self.x = clamp(0, self.x, 1280)
     def draw(self):
         self.cur_state.draw(self)
 
