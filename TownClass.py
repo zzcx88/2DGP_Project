@@ -14,7 +14,7 @@ class Townmap:
         self.image.draw(self.x, self.y)
 
     def update(self):
-        print(self.x)
+        #print(self.x)
         if town_state.player.x > 1280 // 2:
             town_state.player.x -= town_state.player.velocity * game_framework.frame_time
             self.x -= town_state.player.velocity * game_framework.frame_time
