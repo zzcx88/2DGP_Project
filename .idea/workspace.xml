@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8803d431-d33c-489a-bf14-641e9928994d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/E_dongClass.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/PlayerStat.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ScriptLeeClass.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TextBoxClass.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/boss_field_state.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/boss_warring.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/shop_state_LIB.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Object_mgr.py" beforeDir="false" afterPath="$PROJECT_DIR$/Object_mgr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Shop_State.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TownClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/TownClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/town_state.py" beforeDir="false" afterPath="$PROJECT_DIR$/town_state.py" afterDir="false" />
-    </list>
+    <list default="true" id="8803d431-d33c-489a-bf14-641e9928994d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,8 +96,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/shop_state_TIP.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="64">
-              <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="-160">
+              <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
                 <marker date="1541339034855" expanded="true" signature="169:170" ph="..." />
@@ -352,7 +339,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13945803" />
@@ -613,8 +600,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/shop_state_TIP.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="16" lean-forward="true" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="-160">
+          <caret line="20" column="17" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
             <marker date="1541339034855" expanded="true" signature="169:170" ph="..." />
