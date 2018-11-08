@@ -18,10 +18,12 @@ txtbox = None
 def enter():
     print(Object_mgr.objects)
     Object_mgr.clear_and_create_new_Objects()
-    global txtbox, E_dongMap, BossType
+    global txtbox, E_dongMap, BossType, player
     BossType = 0
+    player = Player()
     E_dongMap = E_dong()
     txtbox = TextBox()
+    Object_mgr.add_object(player, 1)
     Object_mgr.add_object(E_dongMap, 0)
     Object_mgr.add_object(txtbox, 1)
 
@@ -35,22 +37,23 @@ def resume():
     pass
 
 def handle_events():
-     global txtbox
+     #global txtbox
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
              game_framework.quit()
-         if event.type == SDL_KEYDOWN and SDLK_ESCAPE:
-             Object_mgr.remove_object(txtbox)
-             battleStart()
-    #pass
-def battleStart():
-    global player
-    player = Player()
-    Object_mgr.add_object(player,1)
+         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+              Object_mgr.remove_object(txtbox)
+         else:
+             player.handle_event(event)
+# def battleStart():
+#     global player
+#     player = Player()
+#     Object_mgr.add_object(player,1)
 
 def update():
-    pass
+    for game_object in Object_mgr.all_objects():
+        game_object.update()
 
 def draw():
     clear_canvas()
