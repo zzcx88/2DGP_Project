@@ -47,6 +47,6 @@ class scriptLEE:
         self.x = 800
         self.y = 110
     def draw(self):
-
+        pass
     def update(self):
         pass

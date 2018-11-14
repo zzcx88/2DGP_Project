@@ -9,8 +9,8 @@ import shop_state_TIP
 import shop_state_GYM
 import shop_state_LIB
 import boss_warring
-from PlayerClass import Player
-from TownClass import Townmap
+from Player import Player
+from Town import Townmap
 name = "TownState"
 
 player = None

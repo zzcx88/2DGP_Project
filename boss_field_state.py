@@ -5,9 +5,9 @@ import os
 from pico2d import *
 import game_framework
 import Object_mgr
-from E_dongClass import E_dong
+from E_dong import E_dong
 import town_state
-from PlayerClass import Player
+from Player import Player
 from TextBoxClass import TextBox
 import PlayerStat
 name = "BossFieldState"
