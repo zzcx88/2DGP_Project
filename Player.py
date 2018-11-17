@@ -7,10 +7,10 @@ RUN_SPEED_KMPH = 30.0          # humuns average run speed(Km / Hour)
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
-JUMP_YSPEED_PPS = 9 * (RUN_SPEED_MPS * PIXEL_PER_METER)
+JUMP_YSPEED_PPS = 6 * (RUN_SPEED_MPS * PIXEL_PER_METER)
 JUMP_XSPEED_PPS = 2 * (RUN_SPEED_MPS * PIXEL_PER_METER)
 FRAME_TIME = 0.16
-ACCELERATION_OF_GRAVITY = 10.0
+ACCELERATION_OF_GRAVITY = 13.0
 VARIATION_OF_VELOCITY_MPS = (ACCELERATION_OF_GRAVITY * FRAME_TIME)
 VARIATION_OF_VELOCITY_PPS = (VARIATION_OF_VELOCITY_MPS * PIXEL_PER_METER)
 
@@ -38,14 +38,18 @@ class IdleState:
     @staticmethod
     def enter(player, event):
         if event == RIGHT_DOWN:
+            player.dir = 1
             player.velocity += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
+            player.dir = -1
             player.velocity -= RUN_SPEED_PPS
         elif event == RIGHT_UP:
+         #   player.dir = 1
             player.velocity -= RUN_SPEED_PPS
         elif event == LEFT_UP:
+        #    player.dir = -1
             player.velocity += RUN_SPEED_PPS
-        player.dir = clamp(-1, player.velocity, 1)
+        #player.dir = clamp(-1, player.velocity, 1)
 
     @staticmethod
     def exit(player, event):
@@ -68,7 +72,9 @@ class IdleState:
         player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
         if player.y <= 110:
             player.y = 110
+            player.jump_velocity = 0
             player.isJunp = False
+            player.cur_state = IdleState
     @staticmethod
     def draw(player):
         if player.dir == 1:
@@ -81,14 +87,18 @@ class RunState:
     @staticmethod
     def enter(player, event):
         if event == RIGHT_DOWN:
+            player.dir = 1
             player.velocity += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
+            player.dir = -1
             player.velocity -= RUN_SPEED_PPS
         elif event == RIGHT_UP:
+        #    player.dir = 1
             player.velocity -= RUN_SPEED_PPS
         elif event == LEFT_UP:
+        #    player.dir = -1
             player.velocity += RUN_SPEED_PPS
-        player.dir = clamp(-1, player.velocity, 1)
+        #player.dir = clamp(-1, player.velocity, 1)
 
     @staticmethod
     def exit(player, event):
@@ -111,6 +121,7 @@ class RunState:
         player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
         if player.y <= 110:
             player.y = 110
+            player.jump_velocity = 0
             player.isJunp = False
         #player.x = clamp(25, player.x, 1920 - 25)
     @staticmethod
@@ -119,7 +130,6 @@ class RunState:
             player.image.clip_draw(int(player.frame) * 128, 640, 128, 128, player.x, player.y)
         else:
             player.image.clip_draw(int(player.frame) * 128, 512, 128, 128, player.x, player.y)
-
 # class JumpState:
 #     @staticmethod
 #     def enter(player, event):
@@ -189,14 +199,12 @@ class Player:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
-    def Jump(self):
-        self.velocity += RUN_SPEED_PPS
-        self.y += self.velocity
+
     def add_event(self, event):
         self.event_que.insert(0, event)
 
     def update(self):
-        print(self.cur_state)
+        #print(self.cur_state)
         self.x = clamp(25, self.x, 1280 - 25)
         self.y = clamp(110, self.y, 1024 - 25)
         self.cur_state.do(self)

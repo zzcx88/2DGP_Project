@@ -1,5 +1,5 @@
 global objects
-objects = [[],[]]
+objects = [[],[],[]]
 
 
 def add_object(o, layer):
@@ -22,10 +22,17 @@ def clear():
 def clear_and_create_new_Objects():
     clear()
     global objects
-    objects = [[], []]
+    objects = [[], [],[]]
 
 def all_objects():
     for i in range(len(objects)):
         for o in objects[i]:
             yield o
+
+def find_curtain_object(layer, index):
+    find = 0
+    for obj in objects[layer]:
+        if find == index:
+            return obj
+        find += 1
 

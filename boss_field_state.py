@@ -9,20 +9,23 @@ from E_dong import E_dong
 import town_state
 from Player import Player
 from TextBoxClass import TextBox
+from ScriptLee import scriptLEE
 import PlayerStat
 name = "BossFieldState"
 player = None
 E_dongMap = None
 txtbox = None
+script_lee = None
 
 def enter():
     print(Object_mgr.objects)
     Object_mgr.clear_and_create_new_Objects()
-    global txtbox, E_dongMap, BossType, player
+    global txtbox, E_dongMap, BossType, player, script_lee
     BossType = 0
     player = Player()
     E_dongMap = E_dong()
     txtbox = TextBox()
+    script_lee = scriptLEE()
     Object_mgr.add_object(player, 1)
     Object_mgr.add_object(E_dongMap, 0)
     Object_mgr.add_object(txtbox, 1)
@@ -44,6 +47,7 @@ def handle_events():
              game_framework.quit()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
               Object_mgr.remove_object(txtbox)
+              Object_mgr.add_object(script_lee, 1)
          else:
              player.handle_event(event)
 # def battleStart():
