@@ -98,6 +98,10 @@ class scriptLEE:
         self.cur_state.enter(self)
     def draw(self):
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
+    def get_bb(self):
+        return self.x - 50, self.y - 130, self.x + 50, self.y + 110
+
     def update(self):
         #print(self.cur_state)
         self.x = clamp(80, self.x, 1280 - 80)

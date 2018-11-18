@@ -58,7 +58,7 @@ class IdleState:
         else:
              if event == SPACE:
                  player.isJunp = True
-                 if player.y == 110:
+                 if player.y == 130:
                           player.jump_velocity = JUMP_YSPEED_PPS
                  else:
                      player.jump_velocity = player.jump_velocity
@@ -70,17 +70,27 @@ class IdleState:
         player.x += player.velocity * game_framework.frame_time
         player.y += player.jump_velocity * game_framework.frame_time
         player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
-        if player.y <= 110:
-            player.y = 110
+        if player.y <= 130:
+            player.y = 130
             player.jump_velocity = 0
             player.isJunp = False
             player.cur_state = IdleState
     @staticmethod
     def draw(player):
         if player.dir == 1:
-            player.image.clip_draw(0, 640, 128, 128, player.x, player.y)
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(0, 640, 128, 128, player.x, player.y)
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(0, 640, 128, 128, player.x, player.y)
         else:
-            player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
 
 class RunState:
 
@@ -107,7 +117,7 @@ class RunState:
         else:
              if event == SPACE:
                  player.isJunp = True
-                 if player.y == 110:
+                 if player.y == 130:
                           player.jump_velocity = JUMP_YSPEED_PPS
                  else:
                      player.jump_velocity = player.jump_velocity
@@ -119,17 +129,27 @@ class RunState:
         player.x += player.velocity * game_framework.frame_time
         player.y += player.jump_velocity * game_framework.frame_time
         player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
-        if player.y <= 110:
-            player.y = 110
+        if player.y <= 130:
+            player.y = 130
             player.jump_velocity = 0
             player.isJunp = False
         #player.x = clamp(25, player.x, 1920 - 25)
     @staticmethod
     def draw(player):
         if player.dir == 1:
-            player.image.clip_draw(int(player.frame) * 128, 640, 128, 128, player.x, player.y)
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(int(player.frame) * 128, 640, 128, 128, player.x, player.y, )
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(int(player.frame) * 128, 640, 128, 128, player.x, player.y,)
         else:
-            player.image.clip_draw(int(player.frame) * 128, 512, 128, 128, player.x, player.y)
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(int(player.frame) * 128, 512, 128, 128, player.x, player.y)
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(int(player.frame) * 128, 512, 128, 128, player.x, player.y)
 # class JumpState:
 #     @staticmethod
 #     def enter(player, event):
@@ -194,11 +214,17 @@ class Player:
         self.velocity = 0
         self.jump_velocity = 0
         self.isJunp = False
+        self.isCollide = False
+        self.invincibleTime = 2
+        self.frameTime = 0
         self.dir = 1
         self.frame = 0
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+
+    def get_bb(self):
+        return self.x - 50, self.y - 69, self.x + 50, self.y + 50
 
     def add_event(self, event):
         self.event_que.insert(0, event)
@@ -216,8 +242,10 @@ class Player:
             else:
                 self.cur_state = next_state_table[self.cur_state][self.event]
             self.cur_state.enter(self, self.event)
+
     def draw(self):
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
