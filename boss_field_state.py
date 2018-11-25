@@ -12,13 +12,15 @@ from TextBoxClass import TextBox
 from ScriptLee import scriptLEE
 import PlayerStat
 import PlayerStat
+from playerBullet import PlayerBullet
 name = "BossFieldState"
 player = None
 E_dongMap = None
 txtbox = None
 script_lee = None
 battleStart = False
-
+bulletList = []
+shooCnt = 0
 def enter():
     Object_mgr.clear_and_create_new_Objects()
     global txtbox, E_dongMap, BossType, player, script_lee, PlayerInst
@@ -42,11 +44,16 @@ def resume():
     pass
 
 def handle_events():
-     global battleStart
+     global battleStart, bulletList, shooCnt
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
              game_framework.quit()
+         elif event.type == SDL_KEYDOWN and event.key == SDLK_LCTRL:
+             # playerBullet = PlayerBullet(PlayerInst.x, PlayerInst.y, PlayerInst.dir)
+             bulletList += [PlayerBullet(PlayerInst.x, PlayerInst.y, PlayerInst.dir)]
+             Object_mgr.add_object(bulletList[shooCnt], 1)
+             shooCnt += 1
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
              if battleStart == False:
                 Object_mgr.remove_object(txtbox)
@@ -80,6 +87,12 @@ def update():
             print("COLLIDE PLAYER")
             PlayerStat.HP_Point -= 1
             PlayerInst.isCollide = True
+        if bulletList == None:
+            pass
+        for bullet in bulletList:
+            if collide(script_lee, bullet):
+                script_lee.hp -= 10
+                Object_mgr.remove_object(bullet)
 
 def draw():
     clear_canvas()

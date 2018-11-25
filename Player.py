@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+from playerBullet import PlayerBullet
 import Object_mgr
 
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
@@ -53,6 +54,8 @@ class IdleState:
 
     @staticmethod
     def exit(player, event):
+        # if event == CTRL:
+        #     player.fire_bullet()
         if player.isJunp == True:
             pass
         else:
@@ -112,6 +115,8 @@ class RunState:
 
     @staticmethod
     def exit(player, event):
+        # if event == CTRL:
+        #     player.fire_bullet()
         if player.isJunp == True:
             pass
         else:
@@ -198,9 +203,9 @@ class AttackState:
     pass
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SPACE: IdleState},
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SPACE: IdleState, CTRL: IdleState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState,
-               RIGHT_DOWN: IdleState, SPACE: IdleState}
+               RIGHT_DOWN: IdleState, SPACE: IdleState,CTRL: RunState}
     # JumpState: {RIGHT_UP: JumpState, LEFT_UP: JumpState, LEFT_DOWN: JumpState,
     #            RIGHT_DOWN: JumpState, SPACE: JumpState,LANDING: IdleState}
 }
@@ -224,10 +229,14 @@ class Player:
         self.cur_state.enter(self, None)
 
     def get_bb(self):
-        return self.x - 50, self.y - 69, self.x + 50, self.y + 50
+        return self.x - 40, self.y - 69, self.x + 40, self.y + 50
 
     def add_event(self, event):
         self.event_que.insert(0, event)
+
+    # def fire_bullet(self):
+    #     playerBullet = PlayerBullet(self.x, self.y, self.dir)
+    #     Object_mgr.add_object(playerBullet, 1)
 
     def update(self):
         #print(self.cur_state)

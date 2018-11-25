@@ -23,8 +23,9 @@ class FirstPatern:
 
     @staticmethod
     def exit(scriptLEE):
-        if scriptLEE.hp <= 500:
-            scriptLEE.cur_state = SecondPatern
+        pass
+        # if scriptLEE.hp <= 500:
+        #     scriptLEE.cur_state = SecondPatern
 
     @staticmethod
     def do(scriptLEE):
