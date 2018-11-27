@@ -1,18 +1,20 @@
 global objects
-objects = [[],[],[]]
+objects = [[], [], [], []]
 
 
 def add_object(o, layer):
     objects[layer].append(o)
 
 
-def remove_object(o):
+def remove_object(obj):
     for i in range(len(objects)):
-        for obj in objects[i]:
-            if obj == o:
-                objects[i].remove(obj)
-                del obj
+        if obj in objects[i]:
+            objects[i].remove(obj)
+            del obj
+            break
 
+def get_layer(layer):
+    return objects[layer]
 
 def clear():
     for o in all_objects():
@@ -22,7 +24,7 @@ def clear():
 def clear_and_create_new_Objects():
     clear()
     global objects
-    objects = [[], [],[]]
+    objects = [[], [], [], []]
 
 def all_objects():
     for i in range(len(objects)):

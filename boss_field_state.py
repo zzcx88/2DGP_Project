@@ -22,20 +22,25 @@ battleStart = False
 bulletList = []
 shooCnt = 0
 def enter():
-    Object_mgr.clear_and_create_new_Objects()
-    global txtbox, E_dongMap, BossType, player, script_lee, PlayerInst
-    BossType = 0
-    player = Player()
-    E_dongMap = E_dong()
-    txtbox = TextBox()
-    script_lee = scriptLEE()
-    Object_mgr.add_object(player, 2)
-    Object_mgr.add_object(E_dongMap, 0)
-    Object_mgr.add_object(txtbox, 1)
-    PlayerInst = Object_mgr.find_curtain_object(2,0)
+    global battleStart
+    if battleStart == False:
+        global txtbox, E_dongMap, BossType, player, boss
+        Object_mgr.clear_and_create_new_Objects()
+        BossType = 0
+        player = Player()
+        E_dongMap = E_dong()
+        txtbox = TextBox()
+        if PlayerStat.bossType == 0:
+            boss = scriptLEE()
+        else:
+            pass
+        Object_mgr.add_object(player, 2)
+        Object_mgr.add_object(E_dongMap, 0)
+        Object_mgr.add_object(txtbox, 1)
 
 def exit():
-    Object_mgr.clear_and_create_new_Objects()
+    pass
+    #Object_mgr.clear_and_create_new_Objects()
 
 def pause():
     pass
@@ -44,20 +49,22 @@ def resume():
     pass
 
 def handle_events():
-     global battleStart, bulletList, shooCnt
+     global battleStart, shooCnt
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
              game_framework.quit()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_LCTRL:
-             # playerBullet = PlayerBullet(PlayerInst.x, PlayerInst.y, PlayerInst.dir)
-             bulletList += [PlayerBullet(PlayerInst.x, PlayerInst.y, PlayerInst.dir)]
-             Object_mgr.add_object(bulletList[shooCnt], 1)
+             if event.type == SDL_KEYDOWN and event.key == SDLK_UP:
+                 keyUp = True
+             else:
+                 keyUp = False
+             Object_mgr.add_object(PlayerBullet(player.x, player.y, player.dir,keyUp), 3)
              shooCnt += 1
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
              if battleStart == False:
                 Object_mgr.remove_object(txtbox)
-                Object_mgr.add_object(script_lee, 1)
+                Object_mgr.add_object(boss, 1)
                 battleStart = True
              else:
                  game_framework.quit()
@@ -74,25 +81,26 @@ def collide(a, b):
     return True
 
 def update():
+    global shooCnt
     for game_object in Object_mgr.all_objects():
         game_object.update()
-    if PlayerInst.isCollide == True:
-        if PlayerInst.frameTime >= PlayerInst.invincibleTime:
-            PlayerInst.isCollide = False
-            PlayerInst.frameTime = 0
+    if player.isCollide == True:
+        if player.frameTime >= player.invincibleTime:
+            player.isCollide = False
+            player.frameTime = 0
         else:
-            PlayerInst.frameTime += game_framework.frame_time
+            player.frameTime += game_framework.frame_time
     else:
-        if collide(player, script_lee):
+        if collide(player, boss):
             print("COLLIDE PLAYER")
             PlayerStat.HP_Point -= 1
-            PlayerInst.isCollide = True
-        if bulletList == None:
-            pass
-        for bullet in bulletList:
-            if collide(script_lee, bullet):
-                script_lee.hp -= 10
-                Object_mgr.remove_object(bullet)
+            player.isCollide = True
+    for bullet in Object_mgr.get_layer(3):
+        if collide(boss, bullet):
+            Object_mgr.remove_object(bullet)
+            boss.hp -= 10
+            boss.isCollide = True
+
 
 def draw():
     clear_canvas()

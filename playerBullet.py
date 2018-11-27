@@ -10,10 +10,10 @@ SHOOT_SPEED_PPS = (SHOOT_SPEED_MPS * PIXEL_PER_METER)
 class PlayerBullet:
     image = None
 
-    def __init__(self, x = 400, y = 300, dir = 1):
+    def __init__(self, x = 400, y = 300, dir = 1, up = False):
         if PlayerBullet.image == None:
             PlayerBullet.image = load_image('Resorce\PlayerBullet.png')
-        self.x, self.y, self.velocity, self.dir = x, y, SHOOT_SPEED_PPS, dir
+        self.x, self.y, self.velocity, self.dir, self.up = x, y, SHOOT_SPEED_PPS, dir, up
 
     def draw(self):
         self.image.draw(self.x, self.y)
@@ -23,10 +23,13 @@ class PlayerBullet:
         return self.x - 40, self.y - 40, self.x + 40, self.y + 40\
 
     def update(self):
-        if self.dir == 1:
-            self.x += self.velocity * game_framework.frame_time
-        elif self.dir == -1:
-            self.x -= self.velocity * game_framework.frame_time
+        if self.up == False:
+            if self.dir == 1:
+                self.x += self.velocity * game_framework.frame_time
+            elif self.dir == -1:
+                self.x -= self.velocity * game_framework.frame_time
+        else:
+            self.y += self.velocity * game_framework.frame_time
 
-        if self.x < 0 or self.x > 1280 or self.y > 1024:
+        if self.x < -100 or self.x > 1300 or self.y > 1024:
             Object_mgr.remove_object(self)

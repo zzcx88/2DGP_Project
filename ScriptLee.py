@@ -23,9 +23,9 @@ class FirstPatern:
 
     @staticmethod
     def exit(scriptLEE):
-        pass
-        # if scriptLEE.hp <= 500:
-        #     scriptLEE.cur_state = SecondPatern
+         if scriptLEE.hp <= 500:
+            scriptLEE.cur_state = SecondPatern
+         pass
 
     @staticmethod
     def do(scriptLEE):
@@ -59,11 +59,8 @@ class SecondPatern:
 
     @staticmethod
     def do(scriptLEE):
-        if scriptLEE.y == 200:
-            if scriptLEE.y >= 800:
-                pass
-            else:
-                scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
+        if scriptLEE.y <= 800:
+            scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
 
         scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
         scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
@@ -94,6 +91,9 @@ class scriptLEE:
         self.dir = 1
         self.frame = 0
         self.shootPoint = 0
+        self.frameTime = 0
+        self.isCollide = False
+        self.invincibleTime = 0.2
         #self.mapinfo = Object_mgr.find_curtain_object(0,0)
         self.cur_state = FirstPatern
         self.cur_state.enter(self)
@@ -104,7 +104,7 @@ class scriptLEE:
         return self.x - 50, self.y - 130, self.x + 50, self.y + 110
 
     def update(self):
-        #print(self.cur_state)
+        print(self.hp)
         self.x = clamp(80, self.x, 1280 - 80)
         self.y = clamp(110, self.y, 1024 + 128)
         self.cur_state.do(self)
