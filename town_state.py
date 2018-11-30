@@ -8,6 +8,7 @@ import Object_mgr
 import shop_state_TIP
 import shop_state_GYM
 import shop_state_LIB
+import PlayerStat
 import boss_warring
 from Player import Player
 from Town import Townmap
@@ -33,13 +34,11 @@ def enter():
     TownMap = Townmap()
     Object_mgr.add_object(TownMap, 0)
     Object_mgr.add_object(player, 1)
+    if PlayerStat.bossType == 1:
+        TownMap.image = load_image('Resorce\Town_map2.png')
 
 def exit():
-    global player, TownMap
-    Object_mgr.clear()
-    del player
-    del TownMap
-
+    pass
 
 def pause():
     pass

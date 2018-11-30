@@ -14,6 +14,20 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0
 FRAMES_PER_ACTION = 12
 
+def draw_logic(scriptLEE):
+    if scriptLEE.dir == 1:
+        scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 256, 128, 256, scriptLEE.x, scriptLEE.y)
+    else:
+        scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 0, 128, 256, scriptLEE.x, scriptLEE.y)
+
+def velocity_aplicate(scriptLEE):
+    scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+    scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
+    if scriptLEE.x <= 80:
+        scriptLEE.dir = 1
+    elif scriptLEE.x >= 1200:
+        scriptLEE.dir = -1
+
 class FirstPatern:
     @staticmethod
     def enter(scriptLEE):
@@ -31,19 +45,11 @@ class FirstPatern:
 
     @staticmethod
     def do(scriptLEE):
-        scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-        scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
-        if scriptLEE.x <= 80:
-            scriptLEE.dir = 1
-        elif scriptLEE.x >= 1200:
-            scriptLEE.dir = -1
+        velocity_aplicate(scriptLEE)
 
     @staticmethod
     def draw(scriptLEE):
-        if scriptLEE.dir == 1:
-            scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 256, 128, 256, scriptLEE.x, scriptLEE.y)
-        else:
-            scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 0, 128, 256, scriptLEE.x, scriptLEE.y)
+        draw_logic(scriptLEE)
 
 
 class SecondPatern:
@@ -68,13 +74,7 @@ class SecondPatern:
             else:
                 scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
         else:
-            scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-            scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
-
-            if scriptLEE.x <= 80:
-                scriptLEE.dir = 1
-            elif scriptLEE.x >= 1200:
-                scriptLEE.dir = -1
+            velocity_aplicate(scriptLEE)
 
             if scriptLEE.frameTime >= scriptLEE.shootTime:
                 scriptLEE.isShoot = True
@@ -83,10 +83,7 @@ class SecondPatern:
                 scriptLEE.frameTime += game_framework.frame_time
     @staticmethod
     def draw(scriptLEE):
-        if scriptLEE.dir == 1:
-            scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 256, 128, 256, scriptLEE.x, scriptLEE.y)
-        else:
-            scriptLEE.image.clip_draw(int(scriptLEE.frame) * 128, 0, 128, 256, scriptLEE.x, scriptLEE.y)
+        draw_logic(scriptLEE)
 
 
 class AttackState:

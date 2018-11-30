@@ -5,6 +5,7 @@ import os
 from pico2d import *
 import game_framework
 import Object_mgr
+import Collision_mgr
 import town_state
 from E_dong import E_dong
 from Player import Player
@@ -12,6 +13,7 @@ from Player import AttackState
 from Player import IdleState
 from TextBoxClass import TextBox
 from ScriptLee import scriptLEE
+from DataJang import DataJang
 import PlayerStat
 import PlayerStat
 from playerBullet import PlayerBullet
@@ -34,8 +36,8 @@ def enter():
         txtbox = TextBox()
         if PlayerStat.bossType == 0:
             boss = scriptLEE()
-        else:
-            pass
+        elif PlayerStat.bossType == 1:
+            boss = DataJang()
         Object_mgr.add_object(E_dongMap, 0)
         Object_mgr.add_object(txtbox, 1)
 
@@ -99,34 +101,8 @@ def update():
     global isUp, txtbox
     for game_object in Object_mgr.all_objects():
         game_object.update()
+    Collision_mgr.collideProcess(player, boss, E_dongMap, txtbox)
 
-    if boss.isShoot == True:
-        Object_mgr.add_object(BossBullet(boss.x, boss.y), 4)
-        boss.isShoot = False
-
-    if player.isCollide == True:
-        if player.frameTime >= player.invincibleTime:
-            player.isCollide = False
-            player.frameTime = 0
-        else:
-            player.frameTime += game_framework.frame_time
-    else:
-        if collide(player, boss):
-            print("COLLIDE PLAYER")
-            PlayerStat.HP_Point -= 1
-            player.isCollide = True
-
-        for bossBullet in Object_mgr.get_layer(4):
-            if collide(player, bossBullet):
-                Object_mgr.remove_object(bossBullet)
-                PlayerStat.HP_Point -= 1
-                player.isCollide = True
-
-    for bullet in Object_mgr.get_layer(3):
-        if collide(boss, bullet):
-            Object_mgr.remove_object(bullet)
-            boss.hp -= 200
-            boss.isCollide = True
     if boss.isDead == True:
         if txtbox == None:
             PlayerStat.textCnt += 1
@@ -143,7 +119,6 @@ def update():
                     global battleStart
                     battleStart = False
                     game_framework.change_state(town_state)
-
 
 def draw():
     #print(Object_mgr.objects)
