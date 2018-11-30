@@ -53,7 +53,7 @@ def draw():
         clear_canvas()
         Bg_Image.draw(640, 512)
         TextBox.draw(640, 200)
-        font.draw(300, 220, '행동력이 부족합니다', (255, 0, 0))
+        font.draw(300, 220, '행동력이 부족합니다', (255, 255, 0))
         update_canvas()
     else:
          clear_canvas()
@@ -61,4 +61,5 @@ def draw():
          TextBox.draw(640, 200)
          font.draw(300, 220, '이곳은 TIP(기술혁신파크) 입니다.', (255,255,255))
          font.draw(300,190,'학식을 통해 체력을 회복할 수 있습다. (행동력 -1)',(255,255,255))
+         font.draw(300, 160, '(나가기 ESC, 학식먹기: Y)', (255, 255, 0))
          update_canvas()

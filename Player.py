@@ -4,7 +4,7 @@ from playerBullet import PlayerBullet
 import Object_mgr
 
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
-RUN_SPEED_KMPH = 80.0          # humuns average run speed(Km / Hour)
+RUN_SPEED_KMPH = 90.0          # humuns average run speed(Km / Hour)
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -21,7 +21,7 @@ ACTION_PER_TIME = 1.0
 FRAMES_PER_ACTION = 12
 
 #Player Event
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SPACE, CTRL, LANDING = range(7)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SPACE, CTRL, CTRL_UP, L_SHIFT_UP, LANDING = range(9)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -29,55 +29,68 @@ key_event_table = {
     (SDL_KEYUP, SDLK_RIGHT): RIGHT_UP,
     (SDL_KEYUP, SDLK_LEFT): LEFT_UP,
     (SDL_KEYDOWN, SDLK_SPACE): SPACE,
-    (SDL_KEYDOWN, SDLK_LCTRL): CTRL
+    (SDL_KEYDOWN, SDLK_LCTRL): CTRL,
+    (SDL_KEYUP, SDLK_LCTRL): CTRL_UP,
+    (SDL_KEYUP, SDLK_LSHIFT): L_SHIFT_UP
 }
 
-#Player Status
+
+def velocity_aplicate(player):
+    if player.cur_state == AttackState:
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+    else:
+        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+    player.x += player.velocity * game_framework.frame_time
+    player.y += player.jump_velocity * game_framework.frame_time
+    player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
+    if player.y <= 130:
+        player.y = 130
+        player.jump_velocity = 0
+        player.isJunp = False
+        if player.velocity == 0:
+            player.cur_state = IdleState
+        else:
+            player.cur_state = RunState
+    if player.isAttack == True:
+        player.cur_state = AttackState
+
+def jump_overlap_check(player, event):
+    if player.isJunp == True:
+        pass
+    else:
+        if event == SPACE:
+            player.isJunp = True
+            if player.y == 130:
+                player.jump_velocity = JUMP_YSPEED_PPS
+            else:
+                player.jump_velocity = player.jump_velocity
+
+def velocity_acc(player, event):
+    if event == RIGHT_DOWN:
+        player.dir = 1
+        player.velocity += RUN_SPEED_PPS
+    elif event == LEFT_DOWN:
+        player.dir = -1
+        player.velocity -= RUN_SPEED_PPS
+    elif event == RIGHT_UP:
+        player.velocity -= RUN_SPEED_PPS
+    elif event == LEFT_UP:
+        player.velocity += RUN_SPEED_PPS
+
 
 class IdleState:
 
     @staticmethod
     def enter(player, event):
-        if event == RIGHT_DOWN:
-            player.dir = 1
-            player.velocity += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            player.dir = -1
-            player.velocity -= RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-         #   player.dir = 1
-            player.velocity -= RUN_SPEED_PPS
-        elif event == LEFT_UP:
-        #    player.dir = -1
-            player.velocity += RUN_SPEED_PPS
-        #player.dir = clamp(-1, player.velocity, 1)
+        velocity_acc(player, event)
 
     @staticmethod
     def exit(player, event):
-        # if event == CTRL:
-        #     player.fire_bullet()
-        if player.isJunp == True:
-            pass
-        else:
-             if event == SPACE:
-                 player.isJunp = True
-                 if player.y == 130:
-                          player.jump_velocity = JUMP_YSPEED_PPS
-                 else:
-                     player.jump_velocity = player.jump_velocity
-             pass
+        jump_overlap_check(player, event)
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-        player.x += player.velocity * game_framework.frame_time
-        player.y += player.jump_velocity * game_framework.frame_time
-        player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
-        if player.y <= 130:
-            player.y = 130
-            player.jump_velocity = 0
-            player.isJunp = False
-            player.cur_state = IdleState
+        velocity_aplicate(player)
     @staticmethod
     def draw(player):
         if player.dir == 1:
@@ -96,49 +109,18 @@ class IdleState:
                 player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
 
 class RunState:
-
     @staticmethod
     def enter(player, event):
-        if event == RIGHT_DOWN:
-            player.dir = 1
-            player.velocity += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            player.dir = -1
-            player.velocity -= RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-        #    player.dir = 1
-            player.velocity -= RUN_SPEED_PPS
-        elif event == LEFT_UP:
-        #    player.dir = -1
-            player.velocity += RUN_SPEED_PPS
-        #player.dir = clamp(-1, player.velocity, 1)
+        velocity_acc(player, event)
 
     @staticmethod
     def exit(player, event):
-        # if event == CTRL:
-        #     player.fire_bullet()
-        if player.isJunp == True:
-            pass
-        else:
-             if event == SPACE:
-                 player.isJunp = True
-                 if player.y == 130:
-                          player.jump_velocity = JUMP_YSPEED_PPS
-                 else:
-                     player.jump_velocity = player.jump_velocity
-             pass
+        jump_overlap_check(player, event)
 
     @staticmethod
     def do(player):
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-        player.x += player.velocity * game_framework.frame_time
-        player.y += player.jump_velocity * game_framework.frame_time
-        player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
-        if player.y <= 130:
-            player.y = 130
-            player.jump_velocity = 0
-            player.isJunp = False
-        #player.x = clamp(25, player.x, 1920 - 25)
+        velocity_aplicate(player)
+
     @staticmethod
     def draw(player):
         if player.dir == 1:
@@ -155,71 +137,72 @@ class RunState:
             else:
                 player.image.opacify(1)
                 player.image.clip_draw(int(player.frame) * 128, 512, 128, 128, player.x, player.y)
-# class JumpState:
-#     @staticmethod
-#     def enter(player, event):
-#         if event == RIGHT_DOWN:
-#             player.dir = 1
-#             player.jump_x = JUMP_XSPEED_PPS
-#         elif event == LEFT_DOWN:
-#             player.dir = -1
-#             player.jump_x = -JUMP_XSPEED_PPS
-#         elif event == RIGHT_UP:
-#             player.dir = 1
-#             pass
-#         elif event == LEFT_UP:
-#             player.dir = -1
-#             pass
-#         elif event == SPACE:
-#             if player.y == 110:
-#                 player.velocity = JUMP_YSPEED_PPS
-#             else:
-#                 player.velocity = player.velocity
-#         #player.dir = clamp(-1, player.velocity, 1)
-#
-#     @staticmethod
-#     def exit(player, event):
-#         pass
-#
-#     @staticmethod
-#     def do(player):
-#         player.x += player.jump_x * game_framework.frame_time
-#         player.y += player.velocity * game_framework.frame_time
-#         player.velocity -= VARIATION_OF_VELOCITY_PPS
-#         if player.y <= 110:
-#            player.y = 110
-#
-#     @staticmethod
-#     def draw(player):
-#         if player.dir == 1:
-#             player.image.clip_draw(0, 640, 128, 128, player.x, player.y)
-#         else:
-#             player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
-
-class TransferState:
-    pass
 
 class AttackState:
-    pass
+    @staticmethod
+    def enter(player, event):
+        velocity_acc(player, event)
+
+    @staticmethod
+    def exit(player, event):
+        jump_overlap_check(player, event)
+
+    @staticmethod
+    def do(player):
+        velocity_aplicate(player)
+
+        # 플레이어 자동발사 로직
+        if player.isAttack == True:
+            if player.shootFrameTime >= player.shootTime:
+                if player.isUp == True:
+                    Object_mgr.add_object(PlayerBullet(player.x, player.y, 2), 3)
+                    player.shootFrameTime = 0
+                else:
+                    Object_mgr.add_object(PlayerBullet(player.x, player.y, player.dir), 3)
+                    player.shootFrameTime = 0
+            else:
+                player.shootFrameTime += game_framework.frame_time
+
+    @staticmethod
+    def draw(player):
+        if player.dir == 1:
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(int(player.frame) * 128, 384, 128, 128, player.x, player.y)
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(int(player.frame) * 128, 384, 128, 128, player.x, player.y)
+        else:
+            if player.isCollide == True:
+                player.image.opacify(0.5)
+                player.image.clip_draw(int(player.frame) * 128, 256, 128, 128, player.x, player.y)
+            else:
+                player.image.opacify(1)
+                player.image.clip_draw(int(player.frame) * 128, 256, 128, 128, player.x, player.y)
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SPACE: IdleState, CTRL: IdleState},
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,
+                SPACE: IdleState, CTRL: AttackState, CTRL_UP: IdleState, L_SHIFT_UP: IdleState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState,
-               RIGHT_DOWN: IdleState, SPACE: IdleState,CTRL: RunState}
-    # JumpState: {RIGHT_UP: JumpState, LEFT_UP: JumpState, LEFT_DOWN: JumpState,
-    #            RIGHT_DOWN: JumpState, SPACE: JumpState,LANDING: IdleState}
+               RIGHT_DOWN: IdleState, SPACE: IdleState,CTRL: AttackState,CTRL_UP: IdleState, L_SHIFT_UP: IdleState},
+     AttackState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: AttackState,
+                RIGHT_DOWN: AttackState, SPACE: AttackState,CTRL: AttackState,CTRL_UP: IdleState, L_SHIFT_UP: IdleState}
 }
 
 
 class Player:
-    def __init__(self):
+    def __init__(self,x = 640, y = 0):
         self.image = load_image('Resorce\PlayerCharacter.png')
-        self.x, self.y = 640, 0
+        self.x, self.y = x, y
         self.jump_x = 0
         self.velocity = 0
         self.jump_velocity = 0
         self.isJunp = False
         self.isCollide = False
+        self.isAttack = False
+        self.isIp = False
+        self.shootTime = 0.15
+        self.shootFrameTime = 0
         self.invincibleTime = 2
         self.frameTime = 0
         self.dir = 1
@@ -246,10 +229,7 @@ class Player:
         if len(self.event_que) > 0:
             self.event = self.event_que.pop()
             self.cur_state.exit(self, self.event)
-            if self.isJunp == True:
-                pass
-            else:
-                self.cur_state = next_state_table[self.cur_state][self.event]
+            self.cur_state = next_state_table[self.cur_state][self.event]
             self.cur_state.enter(self, self.event)
 
     def draw(self):

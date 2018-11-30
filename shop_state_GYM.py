@@ -54,7 +54,7 @@ def draw():
         clear_canvas()
         Bg_Image.draw(640, 512)
         TextBox.draw(640, 200)
-        font.draw(300, 220, '행동력이 부족합니다', (255, 0, 0))
+        font.draw(300, 220, '행동력이 부족합니다', (255, 255, 0))
         update_canvas()
     else:
          clear_canvas()
@@ -62,4 +62,5 @@ def draw():
          TextBox.draw(640, 200)
          font.draw(300, 220, '이곳은 체육관입니다.', (255,255,255))
          font.draw(300,190,'운동을 통해 이동속도를 상승시킬 수 있습니다. (행동력 -1)',(255,255,255))
+         font.draw(300, 160, '(나가기 : ESC, 학식먹기 : Y)', (255, 255, 0))
          update_canvas()

@@ -1,5 +1,6 @@
 from pico2d import *
 import game_framework
+from TextBoxClass import TextBox
 import Object_mgr
 
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
@@ -23,9 +24,10 @@ class FirstPatern:
 
     @staticmethod
     def exit(scriptLEE):
-         if scriptLEE.hp <= 500:
-            scriptLEE.cur_state = SecondPatern
-         pass
+        global ascendX
+        if scriptLEE.hp <= 500:
+           scriptLEE.cur_state = SecondPatern
+           pass
 
     @staticmethod
     def do(scriptLEE):
@@ -48,28 +50,37 @@ class SecondPatern:
     @staticmethod
     def enter(scriptLEE):
         if scriptLEE.dir == 1:
-            scriptLEE.velocity += (RUN_SPEED_PPS + 5)
+            scriptLEE.velocity += RUN_SPEED_PPS / 3
         elif scriptLEE.dir == -1:
-            scriptLEE.velocity -= (RUN_SPEED_PPS + 5)
+            scriptLEE.velocity -= RUN_SPEED_PPS / 3
 
     @staticmethod
     def exit(scriptLEE):
         if scriptLEE.hp <= 0:
-            pass
+            scriptLEE.isDead = True
 
     @staticmethod
     def do(scriptLEE):
+        global ascendX
         if scriptLEE.y <= 800:
-            scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
+            if scriptLEE.velocity < 0:
+                scriptLEE.velocity *= -1
+            else:
+                scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
+        else:
+            scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+            scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
 
-        scriptLEE.frame = (scriptLEE.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-        scriptLEE.x += scriptLEE.velocity * game_framework.frame_time
-        if scriptLEE.x <= 80:
-            scriptLEE.dir = 1
+            if scriptLEE.x <= 80:
+                scriptLEE.dir = 1
+            elif scriptLEE.x >= 1200:
+                scriptLEE.dir = -1
 
-        elif scriptLEE.x >= 1200:
-            scriptLEE.dir = -1
-
+            if scriptLEE.frameTime >= scriptLEE.shootTime:
+                scriptLEE.isShoot = True
+                scriptLEE.frameTime = 0
+            else:
+                scriptLEE.frameTime += game_framework.frame_time
     @staticmethod
     def draw(scriptLEE):
         if scriptLEE.dir == 1:
@@ -82,10 +93,10 @@ class AttackState:
     pass
 
 class scriptLEE:
-    def __init__(self):
+    def __init__(self, x = 800, y = 200):
         self.image = load_image('Resorce\LeeJY.png')
-        self.x = 800
-        self.y = 200
+        self.x = x
+        self.y = y
         self.hp = 1000
         self.velocity = 0
         self.dir = 1
@@ -93,7 +104,9 @@ class scriptLEE:
         self.shootPoint = 0
         self.frameTime = 0
         self.isCollide = False
-        self.invincibleTime = 0.2
+        self.isShoot = False
+        self.isDead = False
+        self.shootTime = 0.3
         #self.mapinfo = Object_mgr.find_curtain_object(0,0)
         self.cur_state = FirstPatern
         self.cur_state.enter(self)
@@ -104,7 +117,7 @@ class scriptLEE:
         return self.x - 50, self.y - 130, self.x + 50, self.y + 110
 
     def update(self):
-        print(self.hp)
+        #print(self.hp)
         self.x = clamp(80, self.x, 1280 - 80)
         self.y = clamp(110, self.y, 1024 + 128)
         self.cur_state.do(self)
