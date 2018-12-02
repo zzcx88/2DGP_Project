@@ -1,6 +1,7 @@
 from pico2d import *
 import game_framework
 from TextBoxClass import TextBox
+from BossBullet import BossBullet
 import Object_mgr
 
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
@@ -75,7 +76,9 @@ class SecondPatern:
                 scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
         else:
             velocity_aplicate(scriptLEE)
-
+            if scriptLEE.isShoot == True:
+                Object_mgr.add_object(BossBullet(scriptLEE.x, scriptLEE.y), 4)
+                scriptLEE.isShoot = False
             if scriptLEE.frameTime >= scriptLEE.shootTime:
                 scriptLEE.isShoot = True
                 scriptLEE.frameTime = 0
@@ -98,23 +101,24 @@ class scriptLEE:
         self.velocity = 0
         self.dir = 1
         self.frame = 0
+        self.alpha = 1
         self.shootPoint = 0
         self.frameTime = 0
         self.isCollide = False
         self.isShoot = False
         self.isDead = False
         self.shootTime = 0.3
-        #self.mapinfo = Object_mgr.find_curtain_object(0,0)
         self.cur_state = FirstPatern
         self.cur_state.enter(self)
+
     def draw(self):
         self.cur_state.draw(self)
         draw_rectangle(*self.get_bb())
+
     def get_bb(self):
         return self.x - 50, self.y - 130, self.x + 50, self.y + 110
 
     def update(self):
-        #print(self.hp)
         self.x = clamp(80, self.x, 1280 - 80)
         self.y = clamp(110, self.y, 1024 + 128)
         self.cur_state.do(self)

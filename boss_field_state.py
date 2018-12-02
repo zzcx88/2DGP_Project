@@ -7,6 +7,8 @@ import game_framework
 import Object_mgr
 import Collision_mgr
 import town_state
+import game_over_state
+import game_win_state
 from E_dong import E_dong
 from Player import Player
 from Player import AttackState
@@ -14,10 +16,8 @@ from Player import IdleState
 from TextBoxClass import TextBox
 from ScriptLee import scriptLEE
 from DataJang import DataJang
+from Heart import Heart
 import PlayerStat
-import PlayerStat
-from playerBullet import PlayerBullet
-from BossBullet import BossBullet
 
 name = "BossFieldState"
 player = None
@@ -27,6 +27,7 @@ script_lee = None
 battleStart = False
 
 def enter():
+    PlayerStat.textCnt += 1
     global battleStart
     if battleStart == False:
         global txtbox, E_dongMap, player, boss
@@ -34,11 +35,13 @@ def enter():
         player = Player(100,130)
         E_dongMap = E_dong()
         txtbox = TextBox()
+        heart = Heart()
         if PlayerStat.bossType == 0:
             boss = scriptLEE()
         elif PlayerStat.bossType == 1:
             boss = DataJang()
         Object_mgr.add_object(E_dongMap, 0)
+        Object_mgr.add_object(heart, 0)
         Object_mgr.add_object(txtbox, 1)
 
 def exit():
@@ -59,21 +62,18 @@ def handle_events():
          for event in events:
              if event.type == SDL_QUIT:
                  game_framework.quit()
-             if event.type == SDL_KEYDOWN and event.key == SDLK_LSHIFT:
+             if event.type == SDL_KEYDOWN and event.key == SDLK_UP:
                  player.isUp = True
-                 player.cur_state = AttackState
-                 player.isAttack = True
+                 player.shootFrameTime = 0.15
              elif event.type == SDL_KEYDOWN and event.key == SDLK_LCTRL:
-                 player.isUp = False
                  player.isAttack = True
+                 player.shootFrameTime = 0.15
                  player.cur_state = AttackState
              elif event.type == SDL_KEYUP and event.key == SDLK_LCTRL:
                  player.isAttack = False
                  player.cur_state = IdleState
-             elif event.type == SDL_KEYUP and event.key == SDLK_LSHIFT:
+             elif event.type == SDL_KEYUP and event.key == SDLK_UP:
                  player.isUp = False
-                 player.isAttack = False
-                 player.cur_state = IdleState
              elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                  if battleStart == False:
                     Object_mgr.remove_object(txtbox)
@@ -98,15 +98,23 @@ def collide(a, b):
     return True
 
 def update():
-    global isUp, txtbox
+    global isUp, txtbox, battleStart
     for game_object in Object_mgr.all_objects():
         game_object.update()
-    Collision_mgr.collideProcess(player, boss, E_dongMap, txtbox)
+    Collision_mgr.collideProcess(player, boss)
+
+    if player.isDead == True:
+        Object_mgr.clear_and_create_new_Objects()
+        player.isDead = False
+        battleStart = False
+        game_framework.change_state(game_over_state)
 
     if boss.isDead == True:
         if txtbox == None:
             PlayerStat.textCnt += 1
             PlayerStat.bossType += 1
+            PlayerStat.Act_Cnt = 2
+            PlayerStat.HP_Point = PlayerStat.MAX_HP_Point
             txtbox = TextBox()
             Object_mgr.clear_and_create_new_Objects()
             Object_mgr.add_object(E_dongMap,0)
@@ -116,12 +124,13 @@ def update():
             for event in events:
                 if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
                     Object_mgr.clear_and_create_new_Objects()
-                    global battleStart
                     battleStart = False
-                    game_framework.change_state(town_state)
+                    if PlayerStat.bossType == 2:
+                        game_framework.change_state(game_win_state)
+                    else:
+                        game_framework.change_state(town_state)
 
 def draw():
-    #print(Object_mgr.objects)
     clear_canvas()
     for game_object in Object_mgr.all_objects():
         game_object.draw()

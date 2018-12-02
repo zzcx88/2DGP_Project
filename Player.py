@@ -1,10 +1,11 @@
 from pico2d import *
 import game_framework
+import PlayerStat
 from playerBullet import PlayerBullet
 import Object_mgr
 
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
-RUN_SPEED_KMPH = 90.0          # humuns average run speed(Km / Hour)
+RUN_SPEED_KMPH = 30.0       # humuns average run speed(Km / Hour)
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
@@ -40,9 +41,12 @@ def velocity_aplicate(player):
         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
     else:
         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-    player.x += player.velocity * game_framework.frame_time
-    player.y += player.jump_velocity * game_framework.frame_time
-    player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
+    if (player.dir == 1 and player.velocity < 0) or(player.dir == -1 and player.velocity > 0):
+        pass
+    else:
+        player.x += player.velocity * game_framework.frame_time
+        player.y += player.jump_velocity * game_framework.frame_time
+        player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
     if player.y <= 130:
         player.y = 130
         player.jump_velocity = 0
@@ -68,14 +72,14 @@ def jump_overlap_check(player, event):
 def velocity_acc(player, event):
     if event == RIGHT_DOWN:
         player.dir = 1
-        player.velocity += RUN_SPEED_PPS
+        player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
     elif event == LEFT_DOWN:
         player.dir = -1
-        player.velocity -= RUN_SPEED_PPS
+        player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
     elif event == RIGHT_UP:
-        player.velocity -= RUN_SPEED_PPS
+        player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
     elif event == LEFT_UP:
-        player.velocity += RUN_SPEED_PPS
+        player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
 
 
 class IdleState:
@@ -197,11 +201,12 @@ class Player:
         self.jump_x = 0
         self.velocity = 0
         self.jump_velocity = 0
+        self.isDead = False
         self.isJunp = False
         self.isCollide = False
         self.isAttack = False
-        self.isIp = False
-        self.shootTime = 0.15
+        self.isUp = False
+        self.shootTime = 0.1
         self.shootFrameTime = 0
         self.invincibleTime = 2
         self.frameTime = 0
@@ -212,17 +217,12 @@ class Player:
         self.cur_state.enter(self, None)
 
     def get_bb(self):
-        return self.x - 40, self.y - 69, self.x + 40, self.y + 50
+        return self.x - 30, self.y - 59, self.x + 30, self.y + 40
 
     def add_event(self, event):
         self.event_que.insert(0, event)
 
-    # def fire_bullet(self):
-    #     playerBullet = PlayerBullet(self.x, self.y, self.dir)
-    #     Object_mgr.add_object(playerBullet, 1)
-
     def update(self):
-        #print(self.cur_state)
         self.x = clamp(25, self.x, 1280 - 25)
         self.y = clamp(110, self.y, 1024 - 25)
         self.cur_state.do(self)
@@ -234,7 +234,6 @@ class Player:
 
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

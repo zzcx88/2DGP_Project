@@ -14,7 +14,10 @@ class Townmap:
         self.image.draw(self.x, self.y)
 
     def update(self):
-        if town_state.player.x > 1280 // 2:
-            town_state.player.x -= town_state.player.velocity * game_framework.frame_time
-            self.x -= town_state.player.velocity * game_framework.frame_time
-        self.x = clamp(-1200, self.x, 2540)
+        if (town_state.player.dir == 1 and town_state.player.velocity < 0) or (town_state.player.dir == -1 and town_state.player.velocity > 0):
+            pass
+        else:
+            if town_state.player.dir == 1 or town_state.player.dir == -1:
+                town_state.player.x -= town_state.player.velocity * game_framework.frame_time
+                self.x -= town_state.player.velocity * game_framework.frame_time
+            self.x = clamp(-1200, self.x, 2540)

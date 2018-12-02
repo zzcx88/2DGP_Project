@@ -11,6 +11,7 @@ import shop_state_LIB
 import PlayerStat
 import boss_warring
 from Player import Player
+from Heart import Heart
 from Town import Townmap
 name = "TownState"
 
@@ -32,6 +33,8 @@ def enter():
     global player, TownMap
     player = Player()
     TownMap = Townmap()
+    heart = Heart()
+    Object_mgr.add_object(heart, 2)
     Object_mgr.add_object(TownMap, 0)
     Object_mgr.add_object(player, 1)
     if PlayerStat.bossType == 1:
@@ -84,8 +87,6 @@ def draw():
     for game_object in Object_mgr.all_objects():
         game_object.draw()
     update_canvas()
-    #delay(0.02)
-
 
 
 

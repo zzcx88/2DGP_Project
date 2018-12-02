@@ -2,7 +2,7 @@ from pico2d import *
 import Object_mgr
 import game_framework
 PIXEL_PER_METER = (10.0 / 0.3) # 1pixel per 3cm
-SHOOT_SPEED_KMPH = 60.0          # humuns average run speed(Km / Hour)
+SHOOT_SPEED_KMPH = 90.0          # humuns average run speed(Km / Hour)
 SHOOT_SPEED_MPM = (SHOOT_SPEED_KMPH * 1000.0 / 60.0)
 SHOOT_SPEED_MPS = (SHOOT_SPEED_MPM / 60.0)
 SHOOT_SPEED_PPS = (SHOOT_SPEED_MPS * PIXEL_PER_METER)

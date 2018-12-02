@@ -1,5 +1,6 @@
 import game_framework
 import town_state
+import boss_field_state
 from pico2d import *
 
 
@@ -8,9 +9,9 @@ image = None
 
 
 def enter():
-    global image
+    global image, font
     image = load_image('Resorce\Title_bg.png')
-
+    font = load_font('neodgm.TTF', 80)
 
 def exit():
     global image
@@ -31,8 +32,10 @@ def handle_events():
 
 
 def draw():
+    global font
     clear_canvas()
     image.draw(640, 512)
+    font.draw(550, 450, 'PRESS SPACE KEY', (0, 0, 0))
     update_canvas()
 
 
