@@ -107,6 +107,7 @@ def update():
         Object_mgr.clear_and_create_new_Objects()
         player.isDead = False
         battleStart = False
+        boss.bgm.stop()
         game_framework.change_state(game_over_state)
 
     if boss.isDead == True:

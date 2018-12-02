@@ -11,11 +11,16 @@ name = "ShopStateGYM"
 
 
 def enter():
-    global Bg_Image, TextBox, font, agree
+    global Bg_Image, TextBox, font, agree, statUP_sound, worng_sound
     Bg_Image = load_image('Resorce\GYM.png')
     TextBox = load_image('Resorce\TextBox_1.png')
     font = load_font('neodgm.TTF', 25)
     agree = False
+    statUP_sound = load_wav('Resorce\sound\level_up.wav')
+    statUP_sound.set_volume(32)
+
+    worng_sound = load_wav('Resorce\sound\wrong.wav')
+    worng_sound.set_volume(32)
 
 def exit():
     global Bg_Image,TextBox,font
@@ -31,7 +36,7 @@ def resume():
     pass
 
 def handle_events():
-     global agree
+     global agree, statUP_sound, worng_sound
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
@@ -42,6 +47,7 @@ def handle_events():
              game_framework.pop_state()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_y:
              if PlayerStat.Act_Cnt == -1:
+                worng_sound.play()
                 draw()
              else:
                 agree = True
@@ -49,6 +55,7 @@ def handle_events():
                 if PlayerStat.Act_Cnt < 0:
                     pass
                 else:
+                    statUP_sound.play()
                     PlayerStat.velocity += 0.5
 
 def update():
@@ -66,7 +73,7 @@ def draw():
         clear_canvas()
         Bg_Image.draw(640, 512)
         TextBox.draw(640, 200)
-        font.draw(300, 220, '행동력 상승', (255, 255, 0))
+        font.draw(300, 220, '이동속도 상승', (255, 255, 0))
         update_canvas()
     else:
          clear_canvas()

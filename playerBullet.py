@@ -17,7 +17,6 @@ class PlayerBullet:
 
     def draw(self):
         self.image.draw(self.x, self.y)
-        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 40, self.y - 40, self.x + 40, self.y + 40

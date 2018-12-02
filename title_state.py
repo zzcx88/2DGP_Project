@@ -6,12 +6,15 @@ from pico2d import *
 
 name = "TitleState"
 image = None
-
+bgm = None
 
 def enter():
-    global image, font
+    global image, font, bgm
     image = load_image('Resorce\Title_bg.png')
     font = load_font('neodgm.TTF', 80)
+    bgm = load_wav('Resorce\sound\Title_theme.ogg')
+    bgm.set_volume(64)
+    bgm.repeat_play()
 
 def exit():
     global image
@@ -19,6 +22,7 @@ def exit():
 
 
 def handle_events():
+    global bgm
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -43,7 +47,6 @@ def draw():
 
 def update():
     pass
-
 
 def pause():
     pass

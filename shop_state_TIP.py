@@ -10,11 +10,17 @@ import PlayerStat
 name = "ShopStateTIP"
 
 def enter():
-    global Bg_Image, TextBox, font, agree
+    global Bg_Image, TextBox, font, agree, statUP_sound, worng_sound
     Bg_Image = load_image('Resorce\TIP.png')
     TextBox = load_image('Resorce\TextBox_1.png')
     font = load_font('neodgm.TTF', 25)
     agree = False
+    statUP_sound = load_wav('Resorce\sound\level_up.wav')
+    statUP_sound.set_volume(32)
+
+    worng_sound = load_wav('Resorce\sound\wrong.wav')
+    worng_sound.set_volume(32)
+
 def exit():
     global Bg_Image,TextBox,font
     del (Bg_Image)
@@ -29,7 +35,7 @@ def resume():
     pass
 
 def handle_events():
-     global agree
+     global agree, statUP_sound, worng_sound
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
@@ -40,6 +46,7 @@ def handle_events():
              game_framework.pop_state()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_y:
              if PlayerStat.Act_Cnt == -1:
+                 worng_sound.play()
                  draw()
              else:
                  PlayerStat.Act_Cnt -= 1
@@ -47,6 +54,7 @@ def handle_events():
                  if PlayerStat.Act_Cnt < 0:
                      pass
                  else:
+                     statUP_sound.play()
                      PlayerStat.MAX_HP_Point += 1
                      PlayerStat.HP_Point = PlayerStat.MAX_HP_Point
 

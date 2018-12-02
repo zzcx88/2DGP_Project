@@ -40,6 +40,7 @@ def random_node_attack(DataJang):
     elif attCnt < 5 and attCnt != -1:
          if DataJang.frameTime >= DataJang.shootTime:
              DataJang.isShoot = True
+             DataJang.shoot_node()
              node = BossNode(random.randint(20, 1260), 1100)
              Object_mgr.add_object(node, 4)
              DataJang.frameTime = 0
@@ -64,6 +65,7 @@ def horizon_attack(DataJang):
         if DataJang.frameTime >= DataJang.shootTime + 1:
             DataJang.isShoot = True
             Runtime = BossRuntime(0, 200)
+            DataJang.runtime()
             Object_mgr.add_object(Runtime, 4)
             DataJang.frameTime = 0
             attCnt = -1
@@ -143,6 +145,7 @@ class SecondPatern:
             if DataJang.frameTime >= shootTime:
                 DataJang.isShoot = True
                 DataJang.shootPoint += 1
+                DataJang.hurt()
                 Object_mgr.add_object(BossOmok(DataJang.x, DataJang.y,
                     Object_mgr.find_curtain_object(2,0).x, Object_mgr.find_curtain_object(2,0).y,DataJang.shootPoint), 4)
                 DataJang.frameTime = 0
@@ -173,15 +176,36 @@ class DataJang:
         self.isShoot = False
         self.isDead = False
         self.shootTime = 0.3
-        #self.mapinfo = Object_mgr.find_curtain_object(0,0)
         self.cur_state = FirstPatern
         self.cur_state.enter(self)
+
+        self.hurt_sound = load_wav('Resorce\sound\Boss_hit.wav')
+        self.hurt_sound.set_volume(42)
+
+        self.node_sound = load_wav('Resorce\sound\scrpt_shoot.wav')
+        self.node_sound.set_volume(32)
+
+        self.runtime_sound = load_wav('Resorce\sound\wrong.wav')
+        self.runtime_sound.set_volume(72)
+
+        self.bgm = load_music('Resorce\sound\Data_Jang_theme.ogg')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
     def draw(self):
         self.cur_state.draw(self)
 
     def get_bb(self):
         return self.x - 50, self.y - 130, self.x + 50, self.y + 110
+
+    def hurt(self):
+        self.hurt_sound.play()
+
+    def shoot_node(self):
+        self.node_sound.play()
+
+    def runtime(self):
+        self.runtime_sound.play()
 
     def update(self):
         #print(self.hp)

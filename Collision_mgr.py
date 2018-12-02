@@ -31,6 +31,7 @@ def collideProcess(player, boss):
             PlayerStat.HP_Point -= 1
             PlayerStat.hitCnt += 1
             player.isCollide = True
+            player.hurt()
 
         for bossBullet in Object_mgr.get_layer(4):
             if collide(player, bossBullet):
@@ -38,6 +39,7 @@ def collideProcess(player, boss):
                 PlayerStat.HP_Point -= 1
                 PlayerStat.hitCnt += 1
                 player.isCollide = True
+                player.hurt()
 
     if boss.alpha < 0.1:
         pass
@@ -45,5 +47,6 @@ def collideProcess(player, boss):
          for bullet in Object_mgr.get_layer(3):
              if collide(boss, bullet):
                  Object_mgr.remove_object(bullet)
-                 boss.hp -= 200
+                 boss.hp -= PlayerStat.Att_Point
                  boss.isCollide = True
+                 boss.hurt()

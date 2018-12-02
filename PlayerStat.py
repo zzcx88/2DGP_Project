@@ -1,4 +1,4 @@
-Att_Point = 1
+Att_Point = 5
 HP_Point = 3
 MAX_HP_Point = 3
 Act_Cnt = 2

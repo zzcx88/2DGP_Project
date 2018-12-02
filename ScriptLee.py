@@ -77,6 +77,7 @@ class SecondPatern:
         else:
             velocity_aplicate(scriptLEE)
             if scriptLEE.isShoot == True:
+                scriptLEE.shoot()
                 Object_mgr.add_object(BossBullet(scriptLEE.x, scriptLEE.y), 4)
                 scriptLEE.isShoot = False
             if scriptLEE.frameTime >= scriptLEE.shootTime:
@@ -111,12 +112,27 @@ class scriptLEE:
         self.cur_state = FirstPatern
         self.cur_state.enter(self)
 
+        self.shoot_sound = load_wav('Resorce\sound\scrpt_shoot.wav')
+        self.shoot_sound.set_volume(32)
+        self.hurt_sound = load_wav('Resorce\sound\Boss_hit.wav')
+        self.hurt_sound.set_volume(42)
+
+        self.bgm = load_music('Resorce\sound\Data_Jang_theme.ogg')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
+
+
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
         return self.x - 50, self.y - 130, self.x + 50, self.y + 110
+
+    def shoot(self):
+        self.shoot_sound.play()
+
+    def hurt(self):
+        self.hurt_sound.play()
 
     def update(self):
         self.x = clamp(80, self.x, 1280 - 80)

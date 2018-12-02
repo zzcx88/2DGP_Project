@@ -6,12 +6,15 @@ from pico2d import *
 import game_framework
 import start_state
 import PlayerStat
+from EndBg import EndBg
+import Object_mgr
 
 def enter():
-    global Bg_Image, TextBox, font, agree
+    global Bg_Image, TextBox, font, agree, music
     Bg_Image = load_image('Resorce\EDN_bg.png')
     font = load_font('neodgm.TTF', 120)
-
+    music = EndBg()
+    Object_mgr.add_object(music, 5)
 def exit():
     pass
 
@@ -28,17 +31,11 @@ def handle_events():
          if event.type == SDL_QUIT:
              game_framework.quit()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-             PlayerStat.Att_Point = 1
-             PlayerStat.HP_Point = 3
-             PlayerStat.MAX_HP_Point = 3
-             PlayerStat.Act_Cnt = 2
-             PlayerStat.textCnt = -1
-             PlayerStat.velocity = 1
-             PlayerStat.bossType = 0
-             game_framework.change_state(start_state)
+             game_framework.quit()
 
 def update():
-    pass
+    for game_object in Object_mgr.all_objects():
+        game_object.update()
 
 def draw():
     global Bg_Image

@@ -9,9 +9,8 @@ logo_time = 0.0
 
 
 def enter():
-    global image
+    global image, bgm
     image = load_image('Resorce\kpu_credit.png')
-
 
 def exit():
     global image

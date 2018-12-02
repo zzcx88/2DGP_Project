@@ -63,6 +63,7 @@ def jump_overlap_check(player, event):
         pass
     else:
         if event == SPACE:
+            player.jump()
             player.isJunp = True
             if player.y == 130:
                 player.jump_velocity = JUMP_YSPEED_PPS
@@ -159,9 +160,11 @@ class AttackState:
         if player.isAttack == True:
             if player.shootFrameTime >= player.shootTime:
                 if player.isUp == True:
+                    player.shoot()
                     Object_mgr.add_object(PlayerBullet(player.x, player.y, 2), 3)
                     player.shootFrameTime = 0
                 else:
+                    player.shoot()
                     Object_mgr.add_object(PlayerBullet(player.x, player.y, player.dir), 3)
                     player.shootFrameTime = 0
             else:
@@ -216,6 +219,15 @@ class Player:
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
 
+        self.shoot_sound = load_wav('Resorce\sound\shoot.wav')
+        self.shoot_sound.set_volume(32)
+
+        self.hurt_sound = load_wav('Resorce\sound\hurt.wav')
+        self.hurt_sound.set_volume(32)
+
+        self.jump_sound = load_wav('Resorce\sound\jump.wav')
+        self.jump_sound.set_volume(32)
+
     def get_bb(self):
         return self.x - 30, self.y - 59, self.x + 30, self.y + 40
 
@@ -234,6 +246,15 @@ class Player:
 
     def draw(self):
         self.cur_state.draw(self)
+
+    def shoot(self):
+        self.shoot_sound.play()
+
+    def hurt(self):
+        self.hurt_sound.play()
+
+    def jump(self):
+        self.jump_sound.play()
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:

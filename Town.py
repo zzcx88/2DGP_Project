@@ -2,6 +2,7 @@ from pico2d import *
 import Object_mgr
 import town_state
 import game_framework
+import PlayerStat
 class Townmap:
     image = None
 
@@ -10,6 +11,10 @@ class Townmap:
             Townmap.image = load_image('Resorce\Town_map1.png')
         self.x = 1920
         self.y = 512
+        if PlayerStat.bossType == 1:
+            self.bgm = load_music('Resorce\sound\school_theme.mp3')
+            self.bgm.set_volume(64)
+            self.bgm.repeat_play()
     def draw(self):
         self.image.draw(self.x, self.y)
 

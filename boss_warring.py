@@ -6,6 +6,7 @@ from pico2d import *
 import game_framework
 import Object_mgr
 import town_state
+import title_state
 import boss_field_state
 name = "BossWarring"
 
@@ -35,6 +36,7 @@ def handle_events():
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
              game_framework.pop_state()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
+             title_state.bgm.set_volume(0)
              game_framework.change_state(boss_field_state)
     #pass
 
