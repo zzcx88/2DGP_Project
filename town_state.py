@@ -13,6 +13,7 @@ import boss_warring
 from Player import Player
 from Heart import Heart
 from Town import Townmap
+from Player import *
 name = "TownState"
 
 player = None
@@ -64,9 +65,9 @@ def intoShop():
     for x in Shop_point_table[E_DONG]:
         if int(TownMap.x) == x:
             game_framework.push_state(boss_warring)
+
 def resume():
     pass
-
 
 def handle_events():
     events = get_events()
@@ -75,12 +76,26 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_SPACE:
             intoShop()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_F9:
+            PlayerStat.Att_Point = 1.5
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_F8:
+            PlayerStat.HP_Point = -1
+            PlayerStat.MAX_HP_Point = -1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_F7:
+            PlayerStat.velocity += 2
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_F6:
+            PlayerStat.bossType = 1
+            PlayerStat.textCnt = 1
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_F5:
+            PlayerStat.bossType = 0
+            PlayerStat.textCnt = -1
         else:
             player.handle_event(event)
 
 def update():
     for game_object in Object_mgr.all_objects():
         game_object.update()
+
 
 def draw():
     clear_canvas()

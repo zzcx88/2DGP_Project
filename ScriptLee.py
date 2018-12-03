@@ -68,10 +68,10 @@ class SecondPatern:
 
     @staticmethod
     def do(scriptLEE):
-        global ascendX
         if scriptLEE.y <= 800:
-            if scriptLEE.velocity < 0:
-                scriptLEE.velocity *= -1
+            if scriptLEE.dir == -1:
+                scriptLEE.dir = 1
+                scriptLEE.velocity = 100
             else:
                 scriptLEE.y += scriptLEE.velocity * game_framework.frame_time
         else:

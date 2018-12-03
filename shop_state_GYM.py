@@ -22,6 +22,7 @@ def enter():
     worng_sound = load_wav('Resorce\sound\wrong.wav')
     worng_sound.set_volume(32)
 
+
 def exit():
     global Bg_Image,TextBox,font
     del (Bg_Image)
@@ -59,7 +60,7 @@ def handle_events():
                     PlayerStat.velocity += 0.5
 
 def update():
-    pass
+    town_state.player.update()
 
 def draw():
     global Bg_Image, TextBox, font, agree

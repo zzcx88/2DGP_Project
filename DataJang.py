@@ -41,7 +41,7 @@ def random_node_attack(DataJang):
          if DataJang.frameTime >= DataJang.shootTime:
              DataJang.isShoot = True
              DataJang.shoot_node()
-             node = BossNode(random.randint(20, 1260), 1100)
+             node = BossNode(random.randint(20, 1260), 1260)
              Object_mgr.add_object(node, 4)
              DataJang.frameTime = 0
          else:
@@ -208,7 +208,6 @@ class DataJang:
         self.runtime_sound.play()
 
     def update(self):
-        #print(self.hp)
         self.x = clamp(80, self.x, 1280 - 80)
         self.y = clamp(110, self.y, 1024 + 128)
         self.cur_state.do(self)

@@ -85,6 +85,13 @@ def handle_events():
                     battleStart = True
                  else:
                      game_framework.quit()
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F9:
+                  PlayerStat.Att_Point += 1.5
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F8:
+                  PlayerStat.HP_Point = -1
+                  PlayerStat.MAX_HP_Point = -1
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F7:
+                 PlayerStat.velocity += 2
              else:
                  player.handle_event(event)
 

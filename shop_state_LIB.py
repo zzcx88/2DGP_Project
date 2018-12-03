@@ -56,7 +56,7 @@ def handle_events():
                     pass
                 else:
                    statUP_sound.play()
-                   PlayerStat.Att_Point += 5
+                   PlayerStat.Att_Point += 1.5
 
 def update():
     pass

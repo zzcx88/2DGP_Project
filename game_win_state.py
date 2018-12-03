@@ -25,7 +25,6 @@ def resume():
     pass
 
 def handle_events():
-     global agree
      events = get_events()
      for event in events:
          if event.type == SDL_QUIT:
@@ -45,15 +44,15 @@ def draw():
     font1 = load_font('neodgm.TTF', 60)
     font1.draw(350, 600, 'Your Grade Is', (0, 0, 0))
     font2 = load_font('neodgm.TTF', 150)
-    if PlayerStat.hitCnt >= 10:
+    if PlayerStat.hitCnt >= 7:
         font2.draw(850, 600, 'D', (255, 0, 0))
-    elif PlayerStat.hitCnt >= 8:
-        font2.draw(850, 600, 'D+', (255, 0, 0))
-    elif PlayerStat.hitCnt >= 8:
-        font2.draw(850, 600, 'C', (255, 0, 0))
     elif PlayerStat.hitCnt >= 6:
-        font2.draw(850, 600, 'C+', (255, 0, 0))
+        font2.draw(850, 600, 'D+', (255, 0, 0))
+    elif PlayerStat.hitCnt >= 5:
+        font2.draw(850, 600, 'C', (255, 0, 0))
     elif PlayerStat.hitCnt >= 4:
+        font2.draw(850, 600, 'C+', (255, 0, 0))
+    elif PlayerStat.hitCnt >= 3:
         font2.draw(850, 600, 'B', (255, 0, 0))
     elif PlayerStat.hitCnt >= 2:
         font2.draw(850, 600, 'B+', (255, 0, 0))

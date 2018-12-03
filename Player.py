@@ -35,28 +35,28 @@ key_event_table = {
     (SDL_KEYUP, SDLK_LSHIFT): L_SHIFT_UP
 }
 
-
 def velocity_aplicate(player):
-    if player.cur_state == AttackState:
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-    else:
-        player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
-    if (player.dir == 1 and player.velocity < 0) or(player.dir == -1 and player.velocity > 0):
-        pass
-    else:
-        player.x += player.velocity * game_framework.frame_time
-        player.y += player.jump_velocity * game_framework.frame_time
-        player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
-    if player.y <= 130:
-        player.y = 130
-        player.jump_velocity = 0
-        player.isJunp = False
-        if player.velocity == 0:
-            player.cur_state = IdleState
-        else:
-            player.cur_state = RunState
-    if player.isAttack == True:
-        player.cur_state = AttackState
+     if player.cur_state == AttackState:
+         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+     else:
+         player.frame = (player.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 5
+     if (player.dir == 1 and player.velocity < 0) or(player.dir == -1 and player.velocity > 0):
+         pass
+     else:
+         player.x += player.velocity * game_framework.frame_time
+         player.y += player.jump_velocity * game_framework.frame_time
+         player.jump_velocity -= VARIATION_OF_VELOCITY_PPS
+     if player.y <= 130:
+         player.y = 130
+         player.jump_velocity = 0
+         player.isJunp = False
+         if player.velocity == 0:
+             player.cur_state = IdleState
+         else:
+             player.cur_state = RunState
+     if player.isAttack == True:
+         player.cur_state = AttackState
+
 
 def jump_overlap_check(player, event):
     if player.isJunp == True:
@@ -70,18 +70,28 @@ def jump_overlap_check(player, event):
             else:
                 player.jump_velocity = player.jump_velocity
 
-def velocity_acc(player, event):
-    if event == RIGHT_DOWN:
-        player.dir = 1
-        player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
-    elif event == LEFT_DOWN:
-        player.dir = -1
-        player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
-    elif event == RIGHT_UP:
-        player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
-    elif event == LEFT_UP:
-        player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
 
+def velocity_acc(player, event):
+    global CHECKL
+    global CHECKR
+    if event == RIGHT_DOWN:
+        if player.CHECKR == False:
+            player.CHECKR = True
+            player.dir = 1
+            player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
+    elif event == LEFT_DOWN:
+        if player.CHECKL == False:
+            player.CHECKL = True
+            player.dir = -1
+            player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
+    elif event == RIGHT_UP:
+        if player.CHECKR == True:
+            player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
+            player.CHECKR = False
+    elif event == LEFT_UP:
+        if player.CHECKL == True:
+            player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
+            player.CHECKL = False
 
 class IdleState:
 
@@ -112,6 +122,7 @@ class IdleState:
             else:
                 player.image.opacify(1)
                 player.image.clip_draw(0, 512, 128, 128, player.x, player.y)
+
 
 class RunState:
     @staticmethod
@@ -204,6 +215,8 @@ class Player:
         self.jump_x = 0
         self.velocity = 0
         self.jump_velocity = 0
+        self.CHECKR = False
+        self.CHECKL = False
         self.isDead = False
         self.isJunp = False
         self.isCollide = False
@@ -227,6 +240,8 @@ class Player:
 
         self.jump_sound = load_wav('Resorce\sound\jump.wav')
         self.jump_sound.set_volume(32)
+
+        self.inputcheck = False
 
     def get_bb(self):
         return self.x - 30, self.y - 59, self.x + 30, self.y + 40
