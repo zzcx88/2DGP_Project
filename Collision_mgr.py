@@ -27,7 +27,6 @@ def collideProcess(player, boss):
             player.frameTime += game_framework.frame_time
     else:
         if collide(player, boss):
-            print("COLLIDE PLAYER")
             PlayerStat.HP_Point -= 1
             PlayerStat.hitCnt += 1
             player.isCollide = True

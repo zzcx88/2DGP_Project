@@ -43,7 +43,6 @@ def handle_events():
          if event.type == SDL_QUIT:
              game_framework.quit()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-             town_state.player.velocity = 0
              agree = False
              game_framework.pop_state()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_y:
@@ -60,7 +59,7 @@ def handle_events():
                     PlayerStat.velocity += 0.5
 
 def update():
-    town_state.player.update()
+    pass
 
 def draw():
     global Bg_Image, TextBox, font, agree

@@ -11,6 +11,7 @@ class Townmap:
             Townmap.image = load_image('Resorce\Town_map1.png')
         self.x = 1920
         self.y = 512
+        self.bgm = 0
         if PlayerStat.bossType == 1:
             self.bgm = load_music('Resorce\sound\school_theme.mp3')
             self.bgm.set_volume(64)

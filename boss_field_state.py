@@ -85,13 +85,18 @@ def handle_events():
                     battleStart = True
                  else:
                      game_framework.quit()
-             elif event.type == SDL_KEYDOWN and event.key == SDLK_F9:
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_0:
+                  player.cheatEnable *= -1
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F9 and player.cheatEnable == 1:
                   PlayerStat.Att_Point += 1.5
-             elif event.type == SDL_KEYDOWN and event.key == SDLK_F8:
-                  PlayerStat.HP_Point = -1
-                  PlayerStat.MAX_HP_Point = -1
-             elif event.type == SDL_KEYDOWN and event.key == SDLK_F7:
+                  print('Enable_ATT_Cheat ', PlayerStat.Att_Point)
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F8 and player.cheatEnable == 1:
+                 PlayerStat.HP_Point = -1
+                 PlayerStat.MAX_HP_Point = -1
+                 print('Enable_HP_Cheat')
+             elif event.type == SDL_KEYDOWN and event.key == SDLK_F7 and player.cheatEnable == 1:
                  PlayerStat.velocity += 2
+                 print('Enable_velocity_Cheat ', PlayerStat.velocity)
              else:
                  player.handle_event(event)
 

@@ -41,7 +41,6 @@ def handle_events():
          if event.type == SDL_QUIT:
              game_framework.quit()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-             town_state.player.velocity = 0
              agree = False
              game_framework.pop_state()
          elif event.type == SDL_KEYDOWN and event.key == SDLK_y:

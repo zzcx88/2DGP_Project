@@ -72,15 +72,13 @@ def jump_overlap_check(player, event):
 
 
 def velocity_acc(player, event):
-    global CHECKL
-    global CHECKR
     if event == RIGHT_DOWN:
-        if player.CHECKR == False:
+        if player.CHECKR == False or player.CHECKR == True:
             player.CHECKR = True
             player.dir = 1
             player.velocity += RUN_SPEED_PPS * PlayerStat.velocity
     elif event == LEFT_DOWN:
-        if player.CHECKL == False:
+        if player.CHECKL == False or player.CHECKL == True:
             player.CHECKL = True
             player.dir = -1
             player.velocity -= RUN_SPEED_PPS * PlayerStat.velocity
@@ -241,7 +239,9 @@ class Player:
         self.jump_sound = load_wav('Resorce\sound\jump.wav')
         self.jump_sound.set_volume(32)
 
-        self.inputcheck = False
+        self.cheatEnable = -1
+
+
 
     def get_bb(self):
         return self.x - 30, self.y - 59, self.x + 30, self.y + 40
