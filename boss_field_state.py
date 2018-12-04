@@ -95,8 +95,11 @@ def handle_events():
                  PlayerStat.MAX_HP_Point = -1
                  print('Enable_HP_Cheat')
              elif event.type == SDL_KEYDOWN and event.key == SDLK_F7 and player.cheatEnable == 1:
-                 PlayerStat.velocity += 2
-                 print('Enable_velocity_Cheat ', PlayerStat.velocity)
+                 if player.velocity == 0:
+                     PlayerStat.velocity += 2
+                     print('Enable_velocity_Cheat ', PlayerStat.velocity)
+                 else:
+                     print('Please_stop_your_character  ')
              else:
                  player.handle_event(event)
 
