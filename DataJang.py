@@ -163,7 +163,7 @@ class DataJang:
         self.image = load_image('Resorce\Data_Jang.png')
         self.x = x
         self.y = y
-        self.hp = 1000
+        self.hp = 600
         self.velocity = 0
         self.dir = -1
         self.alpha = 0

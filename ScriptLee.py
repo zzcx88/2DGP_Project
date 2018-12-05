@@ -40,7 +40,7 @@ class FirstPatern:
     @staticmethod
     def exit(scriptLEE):
         global ascendX
-        if scriptLEE.hp <= 500:
+        if scriptLEE.hp <= 300:
            scriptLEE.cur_state = SecondPatern
            pass
 
@@ -98,7 +98,7 @@ class scriptLEE:
         self.image = load_image('Resorce\LeeJY.png')
         self.x = x
         self.y = y
-        self.hp = 1000
+        self.hp = 700
         self.velocity = 0
         self.dir = 1
         self.frame = 0
